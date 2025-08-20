@@ -48,33 +48,39 @@
         <button type="submit" onclick="deleteUser()">Delete User</button>
   </form>
 
-  <script>
-    function updateUser() {
-      // Grab the edit form
-      const editUserForm = document.getElementById("editUserForm");
-      const id = document.getElementById('edit_id').value;
-
-      editUserForm.action = `/users/${id}/update`;
-
-      editUserForm.submit()
-
-
-    }
-
-
-    function deleteUser() {
-      // Grab the edit form
-      const deleteUserForm = document.getElementById("deleteUserForm");
-      const id = document.getElementById('delete_id').value;
-
-      deleteUserForm.action = `/users/${id}/delete`;
-
-      deleteUserForm.submit()
-
-
-    }
-  </script>
-
 </body>
+
+
+<script>
+  function updateUser() {
+
+    //Grab the edit form
+    const editUserForm = document.getElementById('editUserForm');
+
+    //Grab the id value from the form
+    const id = document.getElementById('edit_id').value
+
+    //insert the id into the action attribute of the form
+    editUserForm.action = '/users/' + id + '/update';
+
+    //submit the form
+    editUserForm.submit();
+  }
+
+  function deleteUser() {
+
+    //Grab the delete form
+    const deleteUserForm = document.getElementById('deleteUserForm');
+
+    //Grab the id value from the form
+    const id = document.getElementById('delete_id').value
+
+    //insert the id into the action attribute of the form
+    deleteUserForm.action = '/users/' + id + '/delete';
+
+    //submit the form
+    deleteUserForm.submit();
+  }
+</script>
 
 </html>

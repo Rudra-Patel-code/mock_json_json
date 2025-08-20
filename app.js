@@ -1,33 +1,29 @@
-const express = require('express');
-require('dotenv').config();
+const express = require("express");
+require("dotenv").config();
 const app = express();
-const mongoose = require('mongoose');
-const path = require("path")
+const mongoose = require("mongoose");
+const ejs = require("ejs");
 const PORT = process.env.PORT;
 const uri = process.env.MONGO_URI;
+const { readData } = require("./utils/file.js");
+const userRouter = require("./router/user.js");
 
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-app.set('views', './views')
+app.set("views", "./views");
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
-app.get("/", (req, res) => {
-  res.render("home");
-})
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
 
+mongoose
+    .connect(uri)
+    .then(async () => {
+        console.log("Connected to MongoDB Server");
 
-
-mongoose.connect(uri).then(
-  async () => {
-
-    console.log('Connected to MongoDB Server');
-
-    app.listen(PORT, () => {
-      console.log(`Connected to port ${PORT}`)
+        app.listen(PORT, () => {
+            console.log(`Connected to port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.log(`error: ${err}`);
     });
-  }).catch((err) => { console.log(`error: ${err}`) });
-
-
